@@ -58,7 +58,7 @@ public class GrafoDirigido extends Grafo {
     @Override
     public Double pesoArista(Integer o, Integer d) {
         //Nan: no es un valor numerico, Not a Number
-        Double peso = Double.NaN;
+        Double peso = 0.0;
         try {
             if (existeArista(o, d)) {
                 ListaEnlazada<Adyacencia> adyacentes = listaAdyacente[o];

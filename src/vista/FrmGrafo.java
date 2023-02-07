@@ -38,6 +38,8 @@ public class FrmGrafo extends javax.swing.JDialog {
     public FrmGrafo(java.awt.Frame parent, boolean modal, Grafo grafo, Integer estado) {
         super(parent, modal);
         this.grafo = grafo;
+        System.out.println("Grafo enviado al frame");
+        System.out.println("-------------------------");
         System.out.println(grafo.toString());
         initComponents();
         setLocationRelativeTo(this);
