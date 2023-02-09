@@ -50,5 +50,4 @@ public class Pila<E> extends ListaEnlazada<E>{
         this.tope = tope;
     }
     
-    
 }

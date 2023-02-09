@@ -9,12 +9,13 @@ package controlador.pila.excepciones;
  *
  * @author ivangonzalez
  */
-public class PilaVaciaExcepcion extends Exception{
-    public PilaVaciaExcepcion(String msg){
+public class PilaVaciaExcepcion extends Exception {
+
+    public PilaVaciaExcepcion(String msg) {
         super(msg);
     }
-    
-    public PilaVaciaExcepcion(){
+
+    public PilaVaciaExcepcion() {
         super("La pila está vacía");
     }
 }

@@ -23,7 +23,6 @@ public class Main {
 
 //        System.out.println("GRAFO INICIAL");
 //        System.out.println(gnde.toString());
-
         gnde.etiquetarVertice(1, "V1");
         gnde.etiquetarVertice(2, "V2");
         gnde.etiquetarVertice(3, "V3");
@@ -33,15 +32,15 @@ public class Main {
         gnde.etiquetarVertice(7, "V7");
 
         try {
-//            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(6), 2.0);
+            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(6), 1.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(5), 2.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(4), 2.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(3), 2.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(2), 2.0);
-//            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(1), 2.0);
+            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(1), 6.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(5), 2.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(4), 5.0);
-//            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(3), 1.0);
+            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(3), 1.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(2), 8.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(1), 6.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(5), gnde.obtenerEtiqueta(4), 20.0);
@@ -56,13 +55,28 @@ public class Main {
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(2), gnde.obtenerEtiqueta(1), 19.0);
 //            System.out.println("GRAFO CON VERTICES Y ARISTAS");
 //            System.out.println(gnde.toString());
-            
-//            gnde.caminoMinimoFloyd();
-            
+
+            System.out.println("DIJKSTRA");
             gnde.caminoMinimoDijkstra(2);
+
+            System.out.println("FLOYD");
+            Double[][] floyd = gnde.caminoMinimoFloyd();
+            System.out.println("\tV1\tV2\tV3\tV4\tV5\tV6\tV7");
+            System.out.println("   ---------------------------------------------------------");
+            for (int i = 0; i < gnde.numVertices(); i++) {
+                System.out.print("V" + (i + 1) + "|" + "\t");
+                for (int j = 0; j < gnde.numVertices(); j++) {
+                    System.out.print(floyd[i][j] + "\t");
+                }
+                System.out.println("\n");
+            }
+            
 //            System.out.println("RECORRIDO PRIMERO ANCHURA");
 //            gnde.recorridoPrimeroAnchura(3).imprimir();
-            
+
+//            System.out.println("RECORRIDO PRIMERO PROFUNDIDAD");
+//            gnde.recorridoPrimeroProfundidad(3).imprimir();
+
             new FrmGrafo(null, true, gnde, 2).setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();

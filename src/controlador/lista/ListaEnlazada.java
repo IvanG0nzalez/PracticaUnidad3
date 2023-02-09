@@ -113,10 +113,10 @@ public class ListaEnlazada<E> {
         System.out.println("-------------LISTA ENLAZADA---------------");
         NodoLista<E> aux = cabecera;
         while (aux != null) {
-            System.out.print(aux.getDato().toString() + "\n");
+            System.out.print(aux.getDato().toString() + "\t");
             aux = aux.getSiguiente();
         }
-        System.out.println("------------------------------------------");
+        System.out.println("\n------------------------------------------");
 
     }
 

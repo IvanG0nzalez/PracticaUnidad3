@@ -9,12 +9,13 @@ package controlador.pila.excepciones;
  *
  * @author ivangonzalez
  */
-public class TopeException extends Exception{
-    public TopeException(String msg){
+public class TopeException extends Exception {
+
+    public TopeException(String msg) {
         super(msg);
     }
-    
-    public TopeException(){
+
+    public TopeException() {
         super("La pila está llena");
     }
 }
