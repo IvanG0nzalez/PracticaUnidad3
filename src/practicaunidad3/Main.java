@@ -37,9 +37,9 @@ public class Main {
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(5), 2.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(4), 2.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(3), 2.0);
-//            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(2), 2.0);
+            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(2), 2.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(7), gnde.obtenerEtiqueta(1), 2.0);
-//            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(5), 2.0);
+            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(5), 2.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(4), 5.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(3), 1.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(6), gnde.obtenerEtiqueta(2), 8.0);
@@ -51,7 +51,7 @@ public class Main {
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(4), gnde.obtenerEtiqueta(3), 2.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(4), gnde.obtenerEtiqueta(2), 9.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(4), gnde.obtenerEtiqueta(1), 12.0);
-//            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(3), gnde.obtenerEtiqueta(2), 50.0);
+            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(3), gnde.obtenerEtiqueta(2), 50.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(3), gnde.obtenerEtiqueta(1), 50.0);
 //            gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(2), gnde.obtenerEtiqueta(1), 19.0);
 //            System.out.println("GRAFO CON VERTICES Y ARISTAS");
@@ -59,14 +59,13 @@ public class Main {
             
 //            gnde.caminoMinimoFloyd();
             
-//            gnde.caminoMinimoDijkstra(2);
+            gnde.caminoMinimoDijkstra(2);
+//            System.out.println("RECORRIDO PRIMERO ANCHURA");
+//            gnde.recorridoPrimeroAnchura(3).imprimir();
             
-            gnde.recorridoPrimeroAnchura(3).imprimir();
-//            System.out.println("CAMINO MINIMO");
-//            gnde.caminoMinimo(3, 5).imprimir();
             new FrmGrafo(null, true, gnde, 2).setVisible(true);
         } catch (Exception e) {
-            System.out.println("Error en grafo etiquetado " + e);
+            e.printStackTrace();
         }
     }
 

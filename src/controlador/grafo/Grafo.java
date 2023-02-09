@@ -7,6 +7,7 @@ package controlador.grafo;
 
 import controlador.cola.Cola;
 import controlador.lista.ListaEnlazada;
+import controlador.pila.Pila;
 
 /**
  *
@@ -139,15 +140,16 @@ public abstract class Grafo {
         F[s] = true;
         D[s] = 0.0;
 
-        for (int j = 1; j < n; j++) {
+        for (int j = 0; j < n; j++) {
             Integer v = minimoDijkstra(n, F, D);
 //            System.out.println("v: " + v);
             F[v] = true;
-            for (int w = 1; w < n; w++) {
+            for (int w = 0; w < n; w++) {
                 if (!F[w]) {
                     if ((D[v] + Pesos[v][w]) < D[w]) {
                         D[w] = D[v] + Pesos[v][w];
                         ultimo[w] = v;
+//                        System.out.println("ultimo:  " + ultimo[w]);
 //                        caminoDijkstra.insertar(D[j-1]);
                     }
 //                    caminoDijkstra.insertar(D[j-1]);
@@ -259,7 +261,7 @@ public abstract class Grafo {
         Integer n = this.numVertices();
         Boolean[] visitados = new Boolean[n];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) { //colocar todas las posiciones de visitados en false
             visitados[i] = false;
         }
         
@@ -271,7 +273,7 @@ public abstract class Grafo {
         while(!cola.estaVacia()){
             Integer j = (Integer)cola.dequeue();
             for (int i = 0; i < n; i++) {
-                if(matrizAdyacentes[j][i] == 2 && !visitados[i]){
+                if(matrizAdyacentes[j][i] == 2 && !visitados[i]){ //Si el peso existe y el vertice no ha sido visitado
                     cola.queue(i);
                     visitados[i] = true;
                     recorridos.insertar(i+1);
@@ -288,9 +290,9 @@ public abstract class Grafo {
             for (int j = 0; j < vertices; j++) {
                 Double peso = this.pesoArista(i + 1, j + 1);
                 if (peso != 0) {
-                    matriz[i][j] = 2;
+                    matriz[i][j] = 2; //2 es el valor fijo utilizado para saber si el peso existe
                 } else {
-                    matriz[i][j] = 1;
+                    matriz[i][j] = 1; // 1 es el valor fijo utilizado para saber si el peso no existe
                 }
 //                System.out.println("matriz: " + matriz[i][j]);
             }
