@@ -5,6 +5,7 @@
  */
 package controlador.grafo;
 
+import controlador.cola.Cola;
 import controlador.lista.ListaEnlazada;
 
 /**
@@ -152,13 +153,14 @@ public abstract class Grafo {
 //                    caminoDijkstra.insertar(D[j-1]);
                 }
             }
+            caminoDijkstra.insertar(D[j]);
         }
 
         System.out.println("--------------------------------------");
         System.out.println("Desde el nodo " + origen);
         System.out.println("======================================");
         for (int i = 0; i < n; i++) {
-            System.out.println("Hacia el nodo " + (i + 1) + " -> Peso minimo: " /**
+            System.out.println("Hacia el nodo " + (i+1) + " -> Peso minimo: " /**
                      * + F[i] + " - "*
                      */
                     + D[i] + " - " + ultimo[i]/**
@@ -248,6 +250,52 @@ public abstract class Grafo {
             }
             System.out.println("\n");
         }
+    }
+    
+    public ListaEnlazada recorridoPrimeroAnchura(Integer origen) throws Exception{
+        System.out.println("Partiendo del nodo: " + origen);
+        ListaEnlazada recorridos = new ListaEnlazada<>();
+        Integer[][] matrizAdyacentes = adyacentes();
+        Integer n = this.numVertices();
+        Boolean[] visitados = new Boolean[n];
 
+        for (int i = 0; i < n; i++) {
+            visitados[i] = false;
+        }
+        
+        visitados[origen-1] = true;
+        Cola cola = new Cola(n);
+        recorridos.insertar(origen);
+        cola.queue(origen-1);
+        
+        while(!cola.estaVacia()){
+            Integer j = (Integer)cola.dequeue();
+            for (int i = 0; i < n; i++) {
+                if(matrizAdyacentes[j][i] == 2 && !visitados[i]){
+                    cola.queue(i);
+                    visitados[i] = true;
+                    recorridos.insertar(i+1);
+                }
+            }
+        }
+        return recorridos;
+    }
+    
+    private Integer[][] adyacentes() {
+        Integer vertices = this.numVertices();
+        Integer[][] matriz = new Integer[vertices][vertices];
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                Double peso = this.pesoArista(i + 1, j + 1);
+                if (peso != 0) {
+                    matriz[i][j] = 2;
+                } else {
+                    matriz[i][j] = 1;
+                }
+//                System.out.println("matriz: " + matriz[i][j]);
+            }
+//            System.out.println("-----");
+        }
+        return matriz;
     }
 }
