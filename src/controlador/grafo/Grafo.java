@@ -158,19 +158,14 @@ public abstract class Grafo {
             caminoMinimo.insertar(D[j]);
         }
 
-        System.out.println("--------------------------------------");
-        System.out.println("Desde el nodo " + origen);
-        System.out.println("======================================");
-        for (int i = 0; i < n; i++) {
-            System.out.println("Hacia el nodo " + (i + 1) + " -> Peso minimo: " /**
-                     * + F[i] + " - "*
-                     */
-                    + D[i] + " - " + ultimo[i]/**
-             * + " - " + ultimo[i] *
-             */
-            );
-        }
-        System.out.println("--------------------------------------");
+//        System.out.println("--------------------------------------");
+//        System.out.println("Desde el nodo " + origen);
+//        System.out.println("======================================");
+//        for (int i = 0; i < n; i++) {
+//            System.out.println("Hacia el nodo " + (i + 1) + " -> Peso minimo: " + D[i] /** + " - " + ultimo[i] **/
+//            );
+//        }
+//        System.out.println("--------------------------------------");
         return caminoMinimo;
     }
 

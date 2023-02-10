@@ -175,7 +175,7 @@ public class ListaEnlazada<E> {
                     size--;
                 } else {
                     NodoLista<E> aux = cabecera;
-                    for (int i = 0; i < pos; i++) {
+                    for (int i = 0; i < pos-1; i++) {
                         aux = aux.getSiguiente();
                     }
                     dato = aux.getDato();

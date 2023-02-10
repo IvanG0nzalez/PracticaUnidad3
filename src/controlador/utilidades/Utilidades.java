@@ -5,7 +5,17 @@
  */
 package controlador.utilidades;
 
+import com.google.gson.Gson;
+import controlador.PaisController;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -13,6 +23,18 @@ import java.lang.reflect.Field;
  */
 public class Utilidades {
 
+    public static  String DISCARPDATA = "data";
+    public static Gson gson = new Gson();
+    
+    public static JComboBox cargarComboPais(JComboBox cbx, PaisController pc) throws Exception{
+        cbx.removeAllItems();
+        for (int i = 0; i < pc.getPaises().getSize(); i++) {
+            cbx.addItem(pc.getPaises().obtener(i));
+        }
+        
+        return cbx;
+    }
+    
     public static Field obtenerAtributo(Class clase, String nombre) {
         Field atributo = null;
         for (Field aux : clase.getDeclaredFields()) {
@@ -57,6 +79,38 @@ public class Utilidades {
 
     public static Double redondear(Double dato) {
         return Math.round(dato * 100.0) / 100.0;
+    }
+    
+    public static boolean guardarJson(PaisController paisController) {
+        String json = gson.toJson(paisController);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(DISCARPDATA + File.separatorChar + "pais.json"))){
+            bw.write(json);
+            System.out.println("Pais Guardado");
+            return true;
+        } catch (Exception e) {
+            System.out.println("Erro al guardar pais: " + e);
+            return false;
+        }
+    }
+    
+    public static PaisController cargarJson(){
+        String fichero = "";
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(DISCARPDATA + File.separatorChar + "pais.json"));
+            String linea = "";
+            while((linea = br.readLine()) != null){
+                fichero = fichero + linea;
+            }
+            br.close();
+            
+        } catch (FileNotFoundException e){
+            System.out.println("Error: " + e);
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+        PaisController paises = gson.fromJson(fichero, PaisController.class);
+        return paises;
     }
 
 }
