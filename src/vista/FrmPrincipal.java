@@ -8,6 +8,8 @@ import controlador.PaisController;
 import controlador.lista.ListaEnlazada;
 import controlador.utilidades.Utilidades;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import modelo.Pais;
 import vista.modeloTabla.ModeloTablaPais;
 
@@ -17,6 +19,7 @@ import vista.modeloTabla.ModeloTablaPais;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    private DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
     private PaisController paisController = new PaisController();
 //    private ListaEnlazada<Pais> paises = new ListaEnlazada<>();
     private ModeloTablaPais mtp = new ModeloTablaPais();
@@ -32,7 +35,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         try {
             cargarJson();
         } catch (Exception e) {
-            System.out.println("Error cargando el json: " + e);
+            System.out.println("Error al cargar el archivo json: " + e);
         }
         setLocationRelativeTo(this);
     }
@@ -55,6 +58,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void cargarTabla() {
         mtp.setPaises(paisController.getPaises());
         tblPaises.setModel(mtp);
+        tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < paisController.getPaises().getSize(); i++) {
+            tblPaises.getColumnModel().getColumn(i).setCellRenderer(tcr);
+        }
         tblPaises.updateUI();
         limpiar();
     }
@@ -263,7 +270,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (tblPaises.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione un país de la tabla", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            Integer i = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que quiere eliminar el arbol?");
+            Integer i = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que quiere eliminar el País?");
             if (i == JOptionPane.OK_OPTION) {
                 try {
                     paisController.getPaises().eliminar(tblPaises.getSelectedRow());

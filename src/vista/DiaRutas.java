@@ -297,7 +297,7 @@ public class DiaRutas extends javax.swing.JDialog {
             for (int i = 0; i < paisController.getGrafo().numVertices(); i++) {
 //                txtCaminoMinimo.setText(cbxPaisOrigen.getSelectedItem().toString() + "\n" +
 //                        paisController.getGrafo().obtenerEtiqueta(i+1) + " - " + paisController.getGrafo().caminoMinimoDijkstra(cbxPaisOrigen.getSelectedIndex() + 1).obtener(i));
-                texto.append( " " + (i+1) + ". " + paisController.getGrafo().obtenerEtiqueta(i+1) + " - " + paisController.getGrafo().caminoMinimoDijkstra(cbxPaisOrigen.getSelectedIndex() + 1).obtener(i) + "\n");
+                texto.append( " " + paisController.getGrafo().obtenerEtiqueta(i+1) + " - " + paisController.getGrafo().caminoMinimoDijkstra(cbxPaisOrigen.getSelectedIndex() + 1).obtener(i) + "\n");
 //                System.out.println("Vertice " + paisController.getGrafo().obtenerEtiqueta(i+1) + " - " + paisController.getGrafo().caminoMinimoDijkstra(cbxPaisOrigen.getSelectedIndex() + 1).obtener(i));
             }
             txtCaminoMinimo.setText(texto.toString());
