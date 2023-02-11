@@ -61,7 +61,7 @@ public class Pais {
 
     @Override
     public String toString() {
-        return nombre + "(" + capital + ")";
+        return nombre + "(" + capital + ")" + " - " + id;
     }
     
     

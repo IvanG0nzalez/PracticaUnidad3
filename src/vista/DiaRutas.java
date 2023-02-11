@@ -10,6 +10,8 @@ import controlador.lista.ListaEnlazada;
 import controlador.utilidades.Utilidades;
 import java.awt.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import vista.modeloTabla.ModeloTablaRutas;
 
 /**
@@ -18,6 +20,7 @@ import vista.modeloTabla.ModeloTablaRutas;
  */
 public class DiaRutas extends javax.swing.JDialog {
 
+    private DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
     private ModeloTablaRutas modeloTablaRutas = new ModeloTablaRutas();
     private FrmGrafo frmGrafo;
     private PaisController paisController;
@@ -45,6 +48,7 @@ public class DiaRutas extends javax.swing.JDialog {
         try {
             Utilidades.cargarComboPais(cbxPaisOrigen, paisController);
             Utilidades.cargarComboPais(cbxPaisDestino, paisController);
+            Utilidades.cargarComboPais(cbxOrigenAlgoritmos, paisController);
         } catch (Exception e) {
             System.out.println("Error al cargar los comboBox " + e);
         }
@@ -54,6 +58,10 @@ public class DiaRutas extends javax.swing.JDialog {
         modeloTablaRutas.setGnde(paisController.getGrafo());
         tblRutas.setModel(modeloTablaRutas);
         modeloTablaRutas.fireTableStructureChanged();
+        tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < grafo.numVertices()+1; i++) {
+            tblRutas.getColumnModel().getColumn(i).setCellRenderer(tcr);
+        }
         tblRutas.updateUI();
     }
 
@@ -61,7 +69,7 @@ public class DiaRutas extends javax.swing.JDialog {
         Integer inicio = cbxPaisOrigen.getSelectedIndex();
         Integer destino = cbxPaisDestino.getSelectedIndex();
         if (inicio == destino) {
-            JOptionPane.showMessageDialog(null, "No escoger el mismo país", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No puede escoger el mismo país", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
                 paisController.getGrafo().insertarArista(inicio + 1, destino + 1, Double.parseDouble(txtDistancia.getText()));
@@ -87,20 +95,24 @@ public class DiaRutas extends javax.swing.JDialog {
         cbxPaisOrigen = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cbxPaisDestino = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
         txtDistancia = new javax.swing.JTextField();
         btnAgregarRuta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRutas = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
         btnVerGrafo = new javax.swing.JButton();
-        btnDijkstra = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtCaminoMinimo = new javax.swing.JTextArea();
-        btnFloyd = new javax.swing.JButton();
-        btnRecorridoAnchura = new javax.swing.JButton();
-        btnRecorridoProfundidad = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbxOrigenAlgoritmos = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        btnFloyd = new javax.swing.JButton();
+        btnDijkstra = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        btnRecorridoProfundidad = new javax.swing.JButton();
+        btnRecorridoAnchura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rutas");
@@ -116,7 +128,7 @@ public class DiaRutas extends javax.swing.JDialog {
 
         cbxPaisOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(cbxPaisOrigen);
-        cbxPaisOrigen.setBounds(110, 20, 150, 30);
+        cbxPaisOrigen.setBounds(110, 20, 160, 30);
 
         jLabel2.setText("Pais Destino:");
         jPanel2.add(jLabel2);
@@ -124,11 +136,7 @@ public class DiaRutas extends javax.swing.JDialog {
 
         cbxPaisDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(cbxPaisDestino);
-        cbxPaisDestino.setBounds(110, 60, 150, 30);
-
-        jLabel3.setText("Pais Origen:");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 20, 100, 30);
+        cbxPaisDestino.setBounds(110, 60, 160, 30);
         jPanel2.add(txtDistancia);
         txtDistancia.setBounds(390, 20, 150, 30);
 
@@ -139,7 +147,7 @@ public class DiaRutas extends javax.swing.JDialog {
             }
         });
         jPanel2.add(btnAgregarRuta);
-        btnAgregarRuta.setBounds(340, 60, 160, 22);
+        btnAgregarRuta.setBounds(340, 60, 160, 30);
 
         tblRutas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,6 +165,10 @@ public class DiaRutas extends javax.swing.JDialog {
         jPanel2.add(jScrollPane1);
         jScrollPane1.setBounds(10, 100, 540, 220);
 
+        jLabel5.setText("Pais Origen:");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(10, 20, 100, 30);
+
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 0, 560, 330);
 
@@ -167,16 +179,7 @@ public class DiaRutas extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnVerGrafo);
-        btnVerGrafo.setBounds(50, 490, 140, 22);
-
-        btnDijkstra.setText("Dijkstra");
-        btnDijkstra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDijkstraActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnDijkstra);
-        btnDijkstra.setBounds(30, 380, 180, 22);
+        btnVerGrafo.setBounds(160, 522, 140, 30);
 
         txtCaminoMinimo.setEditable(false);
         txtCaminoMinimo.setColumns(20);
@@ -184,34 +187,7 @@ public class DiaRutas extends javax.swing.JDialog {
         jScrollPane2.setViewportView(txtCaminoMinimo);
 
         jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(260, 360, 290, 180);
-
-        btnFloyd.setText("Floyd");
-        btnFloyd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFloydActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnFloyd);
-        btnFloyd.setBounds(30, 350, 180, 22);
-
-        btnRecorridoAnchura.setText("Recorrido Anchura");
-        btnRecorridoAnchura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecorridoAnchuraActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRecorridoAnchura);
-        btnRecorridoAnchura.setBounds(30, 420, 180, 22);
-
-        btnRecorridoProfundidad.setText("Recorrido Profundidad");
-        btnRecorridoProfundidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRecorridoProfundidadActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnRecorridoProfundidad);
-        btnRecorridoProfundidad.setBounds(30, 450, 180, 22);
+        jScrollPane2.setBounds(340, 360, 230, 180);
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -220,11 +196,67 @@ public class DiaRutas extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnVolver);
-        btnVolver.setBounds(70, 530, 100, 22);
+        btnVolver.setBounds(10, 522, 100, 30);
 
         jLabel4.setText("CAMINO DIJKSTRA");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(350, 340, 120, 16);
+        jLabel4.setBounds(400, 340, 120, 16);
+
+        jLabel3.setText("Origen:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(50, 350, 60, 30);
+
+        cbxOrigenAlgoritmos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxOrigenAlgoritmos);
+        cbxOrigenAlgoritmos.setBounds(110, 350, 180, 30);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Caminos Mínimos"));
+        jPanel3.setLayout(null);
+
+        btnFloyd.setText("Floyd");
+        btnFloyd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFloydActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnFloyd);
+        btnFloyd.setBounds(10, 60, 100, 22);
+
+        btnDijkstra.setText("Dijkstra");
+        btnDijkstra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDijkstraActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnDijkstra);
+        btnDijkstra.setBounds(10, 30, 100, 22);
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(10, 390, 120, 100);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Recorridos"));
+        jPanel4.setLayout(null);
+
+        btnRecorridoProfundidad.setText("Recorrido Profundidad");
+        btnRecorridoProfundidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecorridoProfundidadActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnRecorridoProfundidad);
+        btnRecorridoProfundidad.setBounds(10, 60, 170, 22);
+
+        btnRecorridoAnchura.setText("Recorrido Anchura");
+        btnRecorridoAnchura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecorridoAnchuraActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnRecorridoAnchura);
+        btnRecorridoAnchura.setBounds(10, 30, 170, 22);
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(140, 390, 190, 100);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -259,8 +291,8 @@ public class DiaRutas extends javax.swing.JDialog {
 //        System.out.println(cbxPaisOrigen.getSelectedItem().toString());
         txtCaminoMinimo.setText("");
         StringBuilder texto = new StringBuilder(txtCaminoMinimo.getText());
-        texto.append(" Origen: " + cbxPaisOrigen.getSelectedItem().toString() + "\n");
-        texto.append(" -------------------\n");
+        texto.append(" Origen: " + cbxOrigenAlgoritmos.getSelectedItem().toString() + "\n");
+        texto.append(" -------------------------------------------------------\n");
         try {
             for (int i = 0; i < paisController.getGrafo().numVertices(); i++) {
 //                txtCaminoMinimo.setText(cbxPaisOrigen.getSelectedItem().toString() + "\n" +
@@ -283,7 +315,7 @@ public class DiaRutas extends javax.swing.JDialog {
         // TODO add your handling code here:
         ListaEnlazada lista = new ListaEnlazada();
         try {
-            lista = paisController.getGrafo().recorridoPrimeroAnchura(cbxPaisOrigen.getSelectedIndex() + 1);
+            lista = paisController.getGrafo().recorridoPrimeroAnchura(cbxOrigenAlgoritmos.getSelectedIndex() + 1);
         } catch (Exception e) {
             System.out.println("Error al ejecutar la busqueda en anchura: " + e);
         }
@@ -296,7 +328,7 @@ public class DiaRutas extends javax.swing.JDialog {
         ListaEnlazada lista = new ListaEnlazada();
         
         try {
-            lista = paisController.getGrafo().recorridoPrimeroProfundidad(cbxPaisOrigen.getSelectedIndex() + 1);
+            lista = paisController.getGrafo().recorridoPrimeroProfundidad(cbxOrigenAlgoritmos.getSelectedIndex() + 1);
         } catch (Exception e) {
             System.out.println("Error al ejecutrar la busqueda en profundidad: " + e);
         }
@@ -360,14 +392,18 @@ public class DiaRutas extends javax.swing.JDialog {
     private javax.swing.JButton btnRecorridoProfundidad;
     private javax.swing.JButton btnVerGrafo;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cbxOrigenAlgoritmos;
     private javax.swing.JComboBox<String> cbxPaisDestino;
     private javax.swing.JComboBox<String> cbxPaisOrigen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblRutas;

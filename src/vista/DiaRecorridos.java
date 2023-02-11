@@ -6,6 +6,8 @@ package vista;
 
 import controlador.PaisController;
 import controlador.lista.ListaEnlazada;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import vista.modeloTabla.ModeloTablaBusquedas;
 
 /**
@@ -14,6 +16,7 @@ import vista.modeloTabla.ModeloTablaBusquedas;
  */
 public class DiaRecorridos extends javax.swing.JDialog {
 
+    private DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
     private ModeloTablaBusquedas modeloTablaBusquedas = new ModeloTablaBusquedas();
     private PaisController paisController;
     private ListaEnlazada lista;
@@ -37,9 +40,12 @@ public class DiaRecorridos extends javax.swing.JDialog {
     
     private void cargarTabla(){
         if(lista.getSize() > 0){
+            
             modeloTablaBusquedas.setGrafo(paisController.getGrafo());
             modeloTablaBusquedas.setLista(lista);
             tblRecorrido.setModel(modeloTablaBusquedas);
+            tcr.setHorizontalAlignment(SwingConstants.CENTER);
+            tblRecorrido.getColumnModel().getColumn(0).setCellRenderer(tcr);
             tblRecorrido.updateUI();
         }
     }

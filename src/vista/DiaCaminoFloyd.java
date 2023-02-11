@@ -5,6 +5,8 @@
 package vista;
 
 import controlador.PaisController;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import vista.modeloTabla.ModeloTablaPesos;
 
 /**
@@ -13,7 +15,8 @@ import vista.modeloTabla.ModeloTablaPesos;
  */
 public class DiaCaminoFloyd extends javax.swing.JDialog {
 
-    private ModeloTablaPesos mtp = new ModeloTablaPesos();
+    private DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+    private ModeloTablaPesos modeloTablaPesos = new ModeloTablaPesos();
     private PaisController paisController;
     
     /**
@@ -34,8 +37,12 @@ public class DiaCaminoFloyd extends javax.swing.JDialog {
     
     private void cargarTabla(){
         if(paisController.getGrafo() != null){
-            mtp.setGrafo(paisController.getGrafo());
-            tblPesosFloyd.setModel(mtp);
+            modeloTablaPesos.setGrafo(paisController.getGrafo());
+            tblPesosFloyd.setModel(modeloTablaPesos);
+            tcr.setHorizontalAlignment(SwingConstants.CENTER);
+            for (int i = 0; i < paisController.getGrafo().numVertices()+1; i++) {
+                tblPesosFloyd.getColumnModel().getColumn(i).setCellRenderer(tcr);
+            }
             tblPesosFloyd.updateUI();
         }
     }
@@ -78,10 +85,10 @@ public class DiaCaminoFloyd extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblPesosFloyd);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 20, 360, 250);
+        jScrollPane1.setBounds(10, 20, 650, 250);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 10, 380, 280);
+        jPanel2.setBounds(10, 10, 670, 280);
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +97,7 @@ public class DiaCaminoFloyd extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnVolver);
-        btnVolver.setBounds(10, 290, 72, 22);
+        btnVolver.setBounds(10, 290, 100, 22);
 
         btnVerGrafo.setText("Ver Grafo");
         btnVerGrafo.addActionListener(new java.awt.event.ActionListener() {
@@ -99,13 +106,13 @@ public class DiaCaminoFloyd extends javax.swing.JDialog {
             }
         });
         jPanel1.add(btnVerGrafo);
-        btnVerGrafo.setBounds(285, 290, 100, 22);
+        btnVerGrafo.setBounds(580, 290, 100, 22);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

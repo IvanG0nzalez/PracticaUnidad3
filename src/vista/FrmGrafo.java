@@ -51,7 +51,7 @@ public class FrmGrafo extends javax.swing.JDialog {
         mxGraph graph = new mxGraph();
         //jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
-        graphComponent.setSize(new Dimension(700, 700));
+        graphComponent.setSize(new Dimension(800, 800));
         //jScrollPane1 = new javax.swing.JScrollPane();
        // jPanel1.setSize(new Dimension(800, 800));
        // jPanel1.add(graphComponent, BorderLayout.CENTER);
@@ -124,7 +124,7 @@ public class FrmGrafo extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(620, 620));
+        setPreferredSize(new java.awt.Dimension(820, 820));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
