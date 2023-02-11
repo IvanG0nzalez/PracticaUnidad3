@@ -209,12 +209,12 @@ public abstract class Grafo {
         Integer n = this.numVertices();
         Double[][] pesos = this.pesos();
         Double[][] d = new Double[n][n];
-        Integer[][] traza = new Integer[n][n];
+//        Integer[][] traza = new Integer[n][n];
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 d[i][j] = pesos[i][j];
-                traza[i][j] = -1;
+//                traza[i][j] = -1;
 //                System.out.println("d: " + d[i][j]);
             }
 //            System.out.println("--------");
@@ -230,7 +230,7 @@ public abstract class Grafo {
 //                    System.out.println(d[i][k]+ "+"+ d[k][j] +"<"+ d[i][j]);
                     if ((d[i][k] + d[k][j]) < d[i][j]) {
                         d[i][j] = d[i][k] + d[k][j];
-                        traza[i][j] = k;
+//                        traza[i][j] = k;
 //                        System.out.println("d: " + d[i][j]);
 //                        System.out.println(traza[i][j]);
                     }

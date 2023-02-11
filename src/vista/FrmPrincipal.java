@@ -35,7 +35,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         try {
             cargarJson();
         } catch (Exception e) {
-            System.out.println("Error al cargar el archivo json: " + e);
+//            System.out.println("Error al cargar el archivo json: " + e);
         }
         setLocationRelativeTo(this);
     }
